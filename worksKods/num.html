@@ -1,0 +1,56 @@
+<!-- Оно работает -->
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Угадай число</title>
+</head>
+<body>
+    <h1>Угадай число от 1 до 100</h1>
+    <input type="number" id="userInput" placeholder="Введите ваше число" />
+    <button id="guessButton">Угадать</button>
+    <p id="message"></p>
+    <button id="restartButton" style="display:none;">Перезапустить игру</button>
+
+    <script>
+        let randomNumber;
+        let tryes = 0;
+        const maxAttempts = 10;
+
+        function startGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            tryes = 0;
+            document.getElementById("message").textContent = "Попробуйте угадать число!";
+            document.getElementById("userInput").value = '';
+            document.getElementById("restartButton").style.display = 'none';
+        }
+
+        document.getElementById("guessButton").addEventListener("click", function() {
+            const userGuess = parseInt(document.getElementById("userInput").value);
+            tryes++;
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                document.getElementById("message").textContent = "Пожалуйста, введите число от 1 до 100.";
+                return;
+            }
+
+            if (userGuess === randomNumber) {
+                document.getElementById("message").textContent = "Поздравляю! Вы угадали число!";
+                document.getElementById("restartButton").style.display = 'block';
+            } else if (tryes >= maxAttempts) {
+                document.getElementById("message").textContent = "Игра окончена! Загаданное число было: "+randomNumber;
+                document.getElementById("restartButton").style.display = 'block';
+            } else if (userGuess < randomNumber) {
+                document.getElementById("message").textContent = "Загаданное число больше. Попробуйте еще раз!";
+            } else {
+                document.getElementById("message").textContent = "Загаданное число меньше. Попробуйте еще раз!";
+            }
+        });
+
+        document.getElementById("restartButton").addEventListener("click", startGame);
+
+        startGame();
+    </script>
+</body>
+</html>

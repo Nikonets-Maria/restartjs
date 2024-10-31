@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Работа с массивами</title>
+</head>
+<body>
+
+    <script>
+function generateRandomArray(size) {
+    const array = [];
+    for (let i = 0; i < size; i++) {
+        array.push(Math.floor(Math.random() * 30406));
+    }
+    return array;
+}
+
+function kalculateStatistics(array) {
+    const sum = array.reduce((acc, num) => acc + num, 0);
+    const average = sum / array.length;
+    const min = Math.min(...array);
+    const max = Math.max(...array);
+
+    return { sum, average, min, max };
+}
+
+const randomArray = generateRandomArray(10);
+const { sum, average, min, max } = kalculateStatistics(randomArray);
+
+const sortedAscending = [...randomArray].sort((a, b) => a - b);
+const sortedDescending = [...randomArray].sort((a, b) => b - a);
+
+console.log("Сгенерированный массив:", randomArray);
+console.log("Сумма:", sum);
+console.log("Среднее значение:", average);
+console.log("Минимальное число:", min);
+console.log("Максимальное число:", max);
+console.log("Отсортированный массив (возрастание):", sortedAscending);
+console.log("Отсортированный массив (убывание):", sortedDescending);
+
+    </script>
+    
+</body>
+</html>
